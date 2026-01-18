@@ -114,8 +114,8 @@ public struct LuminareColorPicker<F>: View
                     }
                 }
                 .monospaced()
-                .luminareFilledStates(.none)
-                .luminareBorderedStates(.none)
+                .luminareFillCondition(.none)
+                .luminareBorderCondition(.none)
             }
 
             if style.hasColorWell {

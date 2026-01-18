@@ -50,8 +50,8 @@ You can find all environment values in the file [`EnvironmentValues+Extensions`]
 |------|------|-------------|---------------|
 | `luminareCornerRadii` | `RectangleCornerRadii` | The corner radii of views. | `12` for all corners |
 | `luminareMinHeight` | `CGFloat` | The minimum height constraint for components. | `30` |
-| `luminareBorderedStates` | ``LuminareBorderStates`` | The border configuration of components. | `.all` |
-| `luminareFilledStates` | ``LuminareFillStates`` | The fill configuration of components. | `.all` |
+| `luminareBorderCondition` | ``LuminareBorderCondition`` | The condition of displaying borders. | `.all` |
+| `luminareFillCondition` | ``LuminareFillCondition`` | The condition of displaying fills. | `.all` |
 | `luminareHasDividers` | `Bool` | Whether to use dividers in list components. | `true` |
 | `luminareContentMarginsTop` | `CGFloat` | The content margin of the top edge. | `0` |
 | `luminareContentMarginsLeading` | `CGFloat` | The content margin of the leading edge. | `0` |

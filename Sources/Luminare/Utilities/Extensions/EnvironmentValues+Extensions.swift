@@ -56,8 +56,8 @@ public extension EnvironmentValues {
     @Entry var luminareCornerRadii: RectangleCornerRadii = .init(12)
     @Entry var luminareMinHeight: CGFloat = 30
 
-    @Entry var luminareBorderedStates: LuminareBorderStates = .all
-    @Entry var luminareFilledStates: LuminareFillStates = .all
+    @Entry var luminareBorderCondition: LuminareBorderCondition = .all
+    @Entry var luminareFillCondition: LuminareFillCondition = .all
     @Entry var luminareHasDividers: Bool = true
 
     @Entry var luminareContentMarginsTop: CGFloat = 0

@@ -123,7 +123,7 @@ public struct LuminareCompactPicker<Content, V>: View where Content: View, V: Ha
             @Environment(\.luminareAnimation) private var animation
             @Environment(\.luminareMinHeight) private var minHeight
             @Environment(\.luminareCornerRadii) private var cornerRadii
-            @Environment(\.luminareBorderedStates) private var borderedStates
+            @Environment(\.luminareBorderCondition) private var borderCondition
 
             var child: VariadicViewChildren.Element
             var namespace: Namespace.ID
@@ -166,7 +166,7 @@ public struct LuminareCompactPicker<Content, V>: View where Content: View, V: Ha
             }
 
             private var constrainedCornerRadii: RectangleCornerRadii {
-                let baseRadii = if borderedStates.contains(.normal) || isParentHovering {
+                let baseRadii = if borderCondition.contains(.normal) || isParentHovering {
                     cornerRadii.inset(by: 2, minRadius: 2)
                 } else {
                     cornerRadii

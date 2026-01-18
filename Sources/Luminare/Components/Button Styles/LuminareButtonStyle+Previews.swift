@@ -95,7 +95,7 @@ import SwiftUI
     Text("Not Bordered")
         .fixedSize()
         .modifier(LuminareHoverableModifier())
-        .luminareBorderedStates(.none)
+        .luminareBorderCondition(.none)
 
     Text("Bordered")
         .fixedSize()

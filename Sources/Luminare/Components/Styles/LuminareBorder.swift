@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct LuminareBorderStates: OptionSet, Sendable {
+public struct LuminareBorderCondition: OptionSet, Sendable {
     public let rawValue: Int
 
     public init(rawValue: Int) {
@@ -42,7 +42,7 @@ public struct LuminareBorderStyle<F: ShapeStyle, H: ShapeStyle>: Sendable {
 }
 
 struct LuminareBorder<F, H>: View where F: ShapeStyle, H: ShapeStyle {
-    @Environment(\.luminareBorderedStates) private var luminareBorderedStates
+    @Environment(\.luminareBorderCondition) private var condition
 
     private let isHovering: Bool
     private let cornerRadii: RectangleCornerRadii
@@ -59,10 +59,10 @@ struct LuminareBorder<F, H>: View where F: ShapeStyle, H: ShapeStyle {
     }
 
     var body: some View {
-        if isHovering, luminareBorderedStates.contains(.hovering) {
+        if isHovering, condition.contains(.hovering) {
             UnevenRoundedRectangle(cornerRadii: cornerRadii)
                 .strokeBorder(style.hovering)
-        } else if luminareBorderedStates.contains(.normal) {
+        } else if condition.contains(.normal) {
             UnevenRoundedRectangle(cornerRadii: cornerRadii)
                 .strokeBorder(style.normal)
         }

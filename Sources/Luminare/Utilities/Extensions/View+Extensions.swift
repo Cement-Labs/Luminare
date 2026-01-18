@@ -278,12 +278,12 @@ public extension View {
         environment(\.luminareMinHeight, height)
     }
 
-    @ViewBuilder func luminareBorderedStates(_ states: LuminareBorderStates) -> some View {
-        environment(\.luminareBorderedStates, states)
+    @ViewBuilder func luminareBorderCondition(_ states: LuminareBorderCondition) -> some View {
+        environment(\.luminareBorderCondition, states)
     }
 
-    @ViewBuilder func luminareFilledStates(_ states: LuminareFillStates) -> some View {
-        environment(\.luminareFilledStates, states)
+    @ViewBuilder func luminareFillCondition(_ states: LuminareFillCondition) -> some View {
+        environment(\.luminareFillCondition, states)
     }
 
     @ViewBuilder func luminareHasDividers(_ hasDividers: Bool) -> some View {

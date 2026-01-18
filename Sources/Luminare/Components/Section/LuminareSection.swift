@@ -23,7 +23,7 @@ public struct LuminareSection<Header, Content, Footer>: View where Header: View,
     // MARK: Environments
 
     @Environment(\.luminareCornerRadii) private var cornerRadii
-    @Environment(\.luminareBorderedStates) private var borderedStates
+    @Environment(\.luminareBorderCondition) private var borderCondition
     @Environment(\.luminareHasDividers) private var hasDividers
     @Environment(\.luminareSectionLayout) private var layout
     @Environment(\.luminareSectionMaxWidth) private var maxWidth
@@ -110,7 +110,7 @@ public struct LuminareSection<Header, Content, Footer>: View where Header: View,
     @ViewBuilder
     private func styledContent() -> some View {
         Group {
-            if borderedStates.contains(.normal) {
+            if borderCondition.contains(.normal) {
                 LuminareSectionStack(hasDividers: hasDividers, content: content)
                     .compositingGroup()
                     .frame(maxWidth: maxWidth == 0 ? nil : maxWidth)

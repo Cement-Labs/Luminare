@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct LuminareFillStates: OptionSet, Sendable {
+public struct LuminareFillCondition: OptionSet, Sendable {
     public let rawValue: Int
 
     public init(rawValue: Int) {
@@ -47,7 +47,7 @@ public struct LuminareFillStyle<F: ShapeStyle, H: ShapeStyle, P: ShapeStyle>: Se
 }
 
 struct LuminareFill<F, H, P>: View where F: ShapeStyle, H: ShapeStyle, P: ShapeStyle {
-    @Environment(\.luminareFilledStates) private var luminareFilledStates
+    @Environment(\.luminareFillCondition) private var condition
 
     private let isHovering: Bool
     private let isPressed: Bool
@@ -67,13 +67,13 @@ struct LuminareFill<F, H, P>: View where F: ShapeStyle, H: ShapeStyle, P: ShapeS
     }
 
     var body: some View {
-        if luminareFilledStates.contains(.pressed), isPressed {
+        if condition.contains(.pressed), isPressed {
             UnevenRoundedRectangle(cornerRadii: cornerRadii)
                 .foregroundStyle(style.pressed)
-        } else if luminareFilledStates.contains(.hovering), isHovering {
+        } else if condition.contains(.hovering), isHovering {
             UnevenRoundedRectangle(cornerRadii: cornerRadii)
                 .foregroundStyle(style.hovering)
-        } else if luminareFilledStates.contains(.normal) {
+        } else if condition.contains(.normal) {
             UnevenRoundedRectangle(cornerRadii: cornerRadii)
                 .foregroundStyle(style.normal)
         }
