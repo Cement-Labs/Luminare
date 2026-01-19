@@ -12,6 +12,7 @@ public struct LuminarePlateauModifier: ViewModifier {
     @Environment(\.luminareCornerRadii) private var cornerRadii
     @Environment(\.luminareIsInsideSection) private var isInsideSection
     @Environment(\.luminareRoundCorners) private var roundCorners
+    
     @State private var disableInnerPadding: Bool? = nil
 
     private let isPressed: Bool

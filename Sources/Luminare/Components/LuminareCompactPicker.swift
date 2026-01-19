@@ -73,9 +73,9 @@ public struct LuminareCompactPicker<Content, V>: View where Content: View, V: Ha
                     )
                 }
                 .padding(.horizontal, 4)
+                .modifier(LuminareHoverableModifier(isHovering: isHovering))
             }
         }
-        .modifier(LuminareHoverableModifier(isHovering: isHovering))
         .onHover { isHovering = $0 }
     }
 
@@ -181,24 +181,16 @@ public struct LuminareCompactPicker<Content, V>: View where Content: View, V: Ha
             }
 
             @ViewBuilder private func knob() -> some View {
-                Group {
-                    if isParentHovering {
-                        Rectangle()
-                            .foregroundStyle(.background.opacity(0.8))
-                    } else {
-                        // The `.blendMode()` prevents `.quinary` style to be clipped
-                        Rectangle()
-                            .foregroundStyle(.quinary.blendMode(.luminosity))
+                Rectangle()
+                    .foregroundStyle(.background.opacity(0.8))
+                    .overlay {
+                        if isHovering {
+                            Rectangle()
+                                .foregroundStyle(.background.opacity(0.2))
+                                .blendMode(.luminosity)
+                        }
                     }
-                }
-                .overlay {
-                    if isHovering {
-                        Rectangle()
-                            .foregroundStyle(.background.opacity(0.2))
-                            .blendMode(.luminosity)
-                    }
-                }
-                .clipShape(.rect(cornerRadii: constrainedCornerRadii))
+                    .clipShape(.rect(cornerRadii: constrainedCornerRadii))
             }
         }
     }
@@ -225,12 +217,6 @@ private struct PickerPreview<V>: View where V: Hashable & Equatable & LosslessSt
     traits: .sizeThatFitsLayout
 ) {
     LuminareSection {
-        LuminareCompose("Button") {
-            Button {} label: {
-                Text("42")
-            }
-        }
-
         LuminareCompose("Pick from a menu") {
             PickerPreview(elements: Array(0 ..< 200), selection: 42)
         }
@@ -239,6 +225,7 @@ private struct PickerPreview<V>: View where V: Hashable & Equatable & LosslessSt
             PickerPreview(elements: ["Inline", "Fixed"], selection: "Inline")
                 .luminareCompactPickerStyle(.segmented)
                 .luminareComposeIgnoreSafeArea(edges: .trailing)
+                .luminareRoundCorners()
         }
 
         PickerPreview(
@@ -246,7 +233,7 @@ private struct PickerPreview<V>: View where V: Hashable & Equatable & LosslessSt
             selection: "macOS"
         )
         .luminareCompactPickerStyle(.segmented)
-        .luminareCornerRadius(12)
+        .luminareRoundCorners(.top)
 
         PickerPreview(elements: [40, 41, 42, 43, 44], selection: 42)
             .luminareCompactPickerStyle(.segmented)

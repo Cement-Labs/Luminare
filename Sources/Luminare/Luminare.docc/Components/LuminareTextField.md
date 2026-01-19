@@ -4,7 +4,7 @@ Handles basic `String` input with customizable formatting means. The appearance 
 
 @Row {
     @Column {
-        ## Basic Usage
+        ### Basic Usage
         
         ```swift
         LuminareTextField(
@@ -24,7 +24,7 @@ Handles basic `String` input with customizable formatting means. The appearance 
     }
     
     @Column {
-        ## Variants
+        ### Variants
 
         ![LuminareTextField](LuminareTextField)
     }
