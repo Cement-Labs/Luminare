@@ -9,6 +9,7 @@ import SwiftUI
 
 // MARK: - Text Editor
 
+/// A stylized text editor.
 public struct LuminareTextEditor: View {
     // MARK: Environments
 
@@ -95,13 +96,27 @@ public struct LuminareTextEditor: View {
 
 // MARK: - Preview
 
+let sampleText = """
+Dolor deserunt culpa laboris nisi. Officia non in do consequat. Exercitation velit amet aliqua laborum adipisicing veniam reprehenderit. Eiusmod sunt sit est mollit veniam ea et duis non est excepteur. Ullamco officia velit ut ullamco veniam ut occaecat pariatur consectetur consectetur duis anim commodo aliqua adipisicing. Eiusmod anim tempor id velit.
+"""
+
+
 @available(macOS 15.0, *)
 #Preview(
     "LuminareTextEditor",
     traits: .sizeThatFitsLayout
 ) {
-    @Previewable @State var text = ""
-    @Previewable @State var selection: TextSelection? = .none
+    @Previewable @State var text = sampleText
+    @Previewable @State var selection: TextSelection? = .init(range: .init(uncheckedBounds: (
+        sampleText.index(
+            sampleText.startIndex,
+            offsetBy: 42
+        ),
+        sampleText.index(
+            sampleText.startIndex,
+            offsetBy: 128
+        )
+    )))
 
     LuminareSection {
         LuminareTextEditor(text: $text)
