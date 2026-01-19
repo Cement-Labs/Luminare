@@ -53,6 +53,7 @@ public extension EnvironmentValues {
 
 public extension EnvironmentValues {
     @Entry var luminareCornerRadii: RectangleCornerRadii = .init(12)
+    @Entry var luminareRoundCorners: RectangleCorners = .none
     @Entry var luminareMinHeight: CGFloat = 30
 
     @Entry var luminareBorderConditions: LuminareBorderConditions = .all
@@ -77,7 +78,6 @@ public extension EnvironmentValues {
     @Entry var luminareSectionLayout: LuminareSectionLayout = .stacked
     @Entry var luminareSectionHorizontalPadding: CGFloat = 8
     @Entry var luminareIsInsideSection: Bool = false
-    @Entry var luminareRoundCorners: RectangleCorners = .none
 
     // If 0, then luminareSection will be of fixed size.
     @Entry var luminareSectionMaxWidth: CGFloat? = .infinity

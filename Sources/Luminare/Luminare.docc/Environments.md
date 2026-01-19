@@ -49,14 +49,12 @@ You can find all environment values in the file [`EnvironmentValues+Extensions`]
 | Name | Type | Description | Default Value |
 |------|------|-------------|---------------|
 | `luminareCornerRadii` | `RectangleCornerRadii` | The corner radii of views. | `12` for all corners |
+| `luminareRoundCorners` | ``RectangleCorners`` | The corners that should be rounded. | `.none` |
 | `luminareMinHeight` | `CGFloat` | The minimum height constraint for components. | `30` |
-| `luminareBorderCondition` | ``LuminareBorderCondition`` | The condition of displaying borders. | `.all` |
-| `luminareFillCondition` | ``LuminareFillCondition`` | The condition of displaying fills. | `.all` |
+| `luminareBorderConditions` | ``LuminareBorderConditions`` | The conditions of displaying borders. | `.all` |
+| `luminareFillConditions` | ``LuminareFillConditions`` | The conditions of displaying fills. | `.all` |
 | `luminareHasDividers` | `Bool` | Whether to use dividers in list components. | `true` |
-| `luminareContentMarginsTop` | `CGFloat` | The content margin of the top edge. | `0` |
-| `luminareContentMarginsLeading` | `CGFloat` | The content margin of the leading edge. | `0` |
-| `luminareContentMarginsBottom` | `CGFloat` | The content margin of the bottom edge. | `0` |
-| `luminareContentMarginsTrailing` | `CGFloat` | The content margin of the trailing edge. | `0` |
+| `luminareContentMargins` | `EdgeInsets` | The content margins for components. | `0` for all edges |
 
 #### Generic Values for Forms
 
@@ -78,10 +76,6 @@ You can find all environment values in the file [`EnvironmentValues+Extensions`]
 | `luminareSectionLayout` | ``LuminareSectionLayout`` | The layout for ``LuminareSection``s. | `.stacked` |
 | `luminareSectionHorizontalPadding` | `CGFloat` | The horizontal padding around section contents. | `8` |
 | `luminareIsInsideSection` | `Bool` | Whether a component should be treated as *inside a section.* This decides various layout details across components, and is automatically set for components inside ``LuminareSection``s. | `false` |
-| `luminareTopLeadingRounded` | `Bool` | | `true` |
-| `luminareTopTrailingRounded` | `Bool` | | `true` |
-| `luminareBottomLeadingRounded` | `Bool` | | `true` |
-| `luminareBottomTrailingRounded` | `Bool` | | `true` |
 | `luminareSectionMaxWidth` | `CGFloat?` | The max width of sections. If set to `0`, then the width of the section would be fixed. | `.infinity` |
 
 #### Generic Values for Composes
@@ -117,8 +111,8 @@ You can find all environment values in the file [`EnvironmentValues+Extensions`]
 | `luminareListItemCornerRadii` | `RectangleCornerRadii` | The corner radii of items inside ``LuminareList``s. | `2` for all corners |
 | `luminareListItemHeight` | `CGFloat` | The height of list items. | `50` |
 | `luminareItemHighlightOnHover` | `Bool` | Whether list items are highlighted on hover. | `true` |
-| `luminareItemBeingHovered` | `Bool` | | `false` |
-| `luminareListFixedHeightUntil` | `CGFloat?` | | `nil` |
+| `luminareItemIsHovering` | `Bool` | Whether a component is being hovered as a list item. | `false` |
+| `luminareListFixedHeightUntil` | `CGFloat?` | The height for a ``LuminareList`` to persist a fixed layout. Overflowing contents will be scrollable. | `nil` |
 
 #### Generic Values for Sidebars
 
