@@ -173,15 +173,25 @@ public struct LuminareSection<Header, Content, Footer>: View where Header: View,
         ) {}
 
         Text("""
-        Lorem eu cupidatat consectetur cupidatat est labore irure dolore dolore deserunt consequat. \
-        Proident non est aliquip consectetur quis dolor. Incididunt aute do ea fugiat dolor. \
-        Cillum cillum enim exercitation dolor do. \
-        Deserunt ipsum aute non occaecat commodo adipisicing non. In est incididunt esse et.
+        Here's to the crazy ones. The misfits. The rebels. The troublemakers. The round pegs in the square holes. The ones who see things differently. They're not fond of rules. And they have no respect for the status quo. You can quote them, disagree with them, glorify or vilify them. About the only thing you can't do is ignore them. Because they change things. They push the human race forward. And while some may see them as the crazy ones, we see genius. Because the people who are crazy enough to think they can change the world, are the ones who do.
+        
+        - Steve Jobs
         """)
         .padding(8)
         .foregroundStyle(.secondary)
         .fixedSize(horizontal: false, vertical: true)
         .frame(maxWidth: .infinity, alignment: .leading)
+        
+        HStack {
+            Button("Cancel") {}
+                .buttonStyle(.luminare)
+                .luminareRoundCorners(.bottomLeading)
+            
+            Button("Done") {}
+                .buttonStyle(.luminare(tinted: true))
+                .luminareRoundCorners(.bottomTrailing)
+        }
+        .frame(height: 40)
     } header: {
         HStack(alignment: .bottom) {
             Text("Section Header")

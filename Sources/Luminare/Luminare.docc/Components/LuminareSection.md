@@ -2,9 +2,10 @@
 
 @Row {
     @Column {
-        It's intuitive to use and is much like a SwiftUI `Section` specially designed for ``Luminare``.
+        ``LuminareSection`` is intuitive to use and is much like a SwiftUI `Section` besides its stylish look.
         
-        Direct children of the content will be separated by horizontal dividers just as expected.
+        In the default style, direct children of the content will be separated by horizontal dividers just as expected.
+        You can, however, toggle clipping, dividers and many other aspects to match your style.
         
         ```swift
         LuminareSection {
