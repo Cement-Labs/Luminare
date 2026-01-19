@@ -549,7 +549,7 @@ private struct StepperPreview<Label, V>: View
                 }
 
                 StepperPreview(
-                    value: 45,
+                    value: 42,
                     source: .infiniteContinuous(step: 2),
                     prominentValues: [0, 42]
                 ) {

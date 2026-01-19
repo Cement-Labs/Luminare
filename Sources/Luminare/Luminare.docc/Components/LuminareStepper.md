@@ -15,7 +15,7 @@
 The ``LuminareStepperSource`` specifies various ways of ranging and snapping the value.
 A ``LuminareStepperProminentIndicators`` can also be specified to change the prominent colors of indicators representing certain values.
 
-It also cooperates seamlessly inside a popover.
+It also cooperates seamlessly with a popover.
 
 ## Topics
 
