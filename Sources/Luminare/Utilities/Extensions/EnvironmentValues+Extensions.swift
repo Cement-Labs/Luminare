@@ -46,8 +46,7 @@ public extension EnvironmentValues {
 
     // MARK: Color Picker
 
-    @Entry var luminareColorPickerHasCancel: Bool = false
-    @Entry var luminareColorPickerHasDone: Bool = false
+    @Entry var luminareColorPickerControls: LuminareColorPickerControls = .all
 }
 
 // MARK: - View
@@ -56,14 +55,11 @@ public extension EnvironmentValues {
     @Entry var luminareCornerRadii: RectangleCornerRadii = .init(12)
     @Entry var luminareMinHeight: CGFloat = 30
 
-    @Entry var luminareBorderCondition: LuminareBorderCondition = .all
-    @Entry var luminareFillCondition: LuminareFillCondition = .all
+    @Entry var luminareBorderConditions: LuminareBorderConditions = .all
+    @Entry var luminareFillConditions: LuminareFillConditions = .all
     @Entry var luminareHasDividers: Bool = true
 
-    @Entry var luminareContentMarginsTop: CGFloat = 0
-    @Entry var luminareContentMarginsLeading: CGFloat = 0
-    @Entry var luminareContentMarginsBottom: CGFloat = 0
-    @Entry var luminareContentMarginsTrailing: CGFloat = 0
+    @Entry var luminareContentMargins: EdgeInsets = .init(0)
 
     // MARK: Form
 
@@ -81,10 +77,7 @@ public extension EnvironmentValues {
     @Entry var luminareSectionLayout: LuminareSectionLayout = .stacked
     @Entry var luminareSectionHorizontalPadding: CGFloat = 8
     @Entry var luminareIsInsideSection: Bool = false
-    @Entry var luminareTopLeadingRounded: Bool = true
-    @Entry var luminareTopTrailingRounded: Bool = true
-    @Entry var luminareBottomLeadingRounded: Bool = true
-    @Entry var luminareBottomTrailingRounded: Bool = true
+    @Entry var luminareRoundCorners: RectangleCorners = .none
 
     // If 0, then luminareSection will be of fixed size.
     @Entry var luminareSectionMaxWidth: CGFloat? = .infinity
@@ -115,7 +108,7 @@ public extension EnvironmentValues {
 
     @Entry var luminareListItemHeight: CGFloat = 50
     @Entry var luminareListItemHighlightOnHover: Bool = true
-    @Entry var luminareItemBeingHovered: Bool = false
+    @Entry var luminareListItemIsHovering: Bool = false
     @Entry var luminareListFixedHeightUntil: CGFloat? = nil
 
     // MARK: Sidebar

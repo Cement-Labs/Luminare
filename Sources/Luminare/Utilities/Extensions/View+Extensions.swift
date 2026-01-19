@@ -256,9 +256,8 @@ public extension View {
 
     // MARK: Color Picker
 
-    @ViewBuilder func luminareColorPickerControls(hasCancel: Bool? = nil, hasDone: Bool? = nil) -> some View {
-        environment(\.luminareColorPickerHasCancel, ifNotNil: hasCancel)
-            .environment(\.luminareColorPickerHasDone, ifNotNil: hasDone)
+    @ViewBuilder func luminareColorPickerControls(_ controls: LuminareColorPickerControls) -> some View {
+        environment(\.luminareColorPickerControls, controls)
     }
 }
 
@@ -278,12 +277,12 @@ public extension View {
         environment(\.luminareMinHeight, height)
     }
 
-    @ViewBuilder func luminareBorderCondition(_ states: LuminareBorderCondition) -> some View {
-        environment(\.luminareBorderCondition, states)
+    @ViewBuilder func luminareBorderConditions(_ conditions: LuminareBorderConditions) -> some View {
+        environment(\.luminareBorderConditions, conditions)
     }
 
-    @ViewBuilder func luminareFillCondition(_ states: LuminareFillCondition) -> some View {
-        environment(\.luminareFillCondition, states)
+    @ViewBuilder func luminareFillConditions(_ conditions: LuminareFillConditions) -> some View {
+        environment(\.luminareFillConditions, conditions)
     }
 
     @ViewBuilder func luminareHasDividers(_ hasDividers: Bool) -> some View {
@@ -291,21 +290,15 @@ public extension View {
     }
 
     @ViewBuilder func luminareContentMargins(_ insets: EdgeInsets) -> some View {
-        environment(\.luminareContentMarginsTop, insets.top)
-            .environment(\.luminareContentMarginsLeading, insets.leading)
-            .environment(\.luminareContentMarginsBottom, insets.bottom)
-            .environment(\.luminareContentMarginsTrailing, insets.trailing)
+        environment(\.luminareContentMargins, insets)
     }
-
-    @ViewBuilder func luminareContentMargins(_ edges: Edge.Set, _ length: CGFloat) -> some View {
-        environment(\.luminareContentMarginsTop, ifNotNil: edges.contains(.top) ? length : nil)
-            .environment(\.luminareContentMarginsLeading, ifNotNil: edges.contains(.leading) ? length : nil)
-            .environment(\.luminareContentMarginsBottom, ifNotNil: edges.contains(.bottom) ? length : nil)
-            .environment(\.luminareContentMarginsTrailing, ifNotNil: edges.contains(.trailing) ? length : nil)
-    }
-
+    
     @ViewBuilder func luminareContentMargins(_ length: CGFloat) -> some View {
-        luminareContentMargins(.all, length)
+        luminareContentMargins(EdgeInsets(length)) // Prevents ambiguity
+    }
+    
+    @ViewBuilder func luminareContentMargins(_ edges: Edge.Set, _ length: CGFloat) -> some View {
+        luminareContentMargins(.init(length, edges: edges))
     }
 
     // MARK: Form
@@ -335,36 +328,8 @@ public extension View {
         environment(\.luminareSectionHorizontalPadding, padding)
     }
 
-    @ViewBuilder func luminareRoundingBehavior(
-        topLeading: Bool? = nil,
-        topTrailing: Bool? = nil,
-        bottomLeading: Bool? = nil,
-        bottomTrailing: Bool? = nil
-    ) -> some View {
-        environment(\.luminareTopLeadingRounded, ifNotNil: topLeading)
-            .environment(\.luminareTopTrailingRounded, ifNotNil: topTrailing)
-            .environment(\.luminareBottomLeadingRounded, ifNotNil: bottomLeading)
-            .environment(\.luminareBottomTrailingRounded, ifNotNil: bottomTrailing)
-    }
-
-    @ViewBuilder func luminareRoundingBehavior(
-        top: Bool? = nil,
-        bottom: Bool? = nil
-    ) -> some View {
-        environment(\.luminareTopLeadingRounded, ifNotNil: top)
-            .environment(\.luminareTopTrailingRounded, ifNotNil: top)
-            .environment(\.luminareBottomLeadingRounded, ifNotNil: bottom)
-            .environment(\.luminareBottomTrailingRounded, ifNotNil: bottom)
-    }
-
-    @ViewBuilder func luminareRoundingBehavior(
-        leading: Bool? = nil,
-        trailing: Bool? = nil
-    ) -> some View {
-        environment(\.luminareTopLeadingRounded, ifNotNil: leading)
-            .environment(\.luminareTopTrailingRounded, ifNotNil: trailing)
-            .environment(\.luminareBottomLeadingRounded, ifNotNil: leading)
-            .environment(\.luminareBottomTrailingRounded, ifNotNil: trailing)
+    @ViewBuilder func luminareRoundCorners(_ corners: RectangleCorners = .all) -> some View {
+        environment(\.luminareRoundCorners, corners)
     }
 
     @ViewBuilder func luminareSectionMaxWidth(_ maxWidth: CGFloat?) -> some View {

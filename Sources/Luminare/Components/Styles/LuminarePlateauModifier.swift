@@ -11,10 +11,7 @@ public struct LuminarePlateauModifier: ViewModifier {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.luminareCornerRadii) private var cornerRadii
     @Environment(\.luminareIsInsideSection) private var isInsideSection
-    @Environment(\.luminareTopLeadingRounded) private var topLeadingRounded
-    @Environment(\.luminareTopTrailingRounded) private var topTrailingRounded
-    @Environment(\.luminareBottomLeadingRounded) private var bottomLeadingRounded
-    @Environment(\.luminareBottomTrailingRounded) private var bottomTrailingRounded
+    @Environment(\.luminareRoundCorners) private var roundCorners
     @State private var disableInnerPadding: Bool? = nil
 
     private let isPressed: Bool
@@ -40,10 +37,10 @@ public struct LuminarePlateauModifier: ViewModifier {
             let cornerRadii = disableInnerPadding ? cornerRadii : cornerRadii.inset(by: 4)
 
             return RectangleCornerRadii(
-                topLeading: topLeadingRounded ? cornerRadii.topLeading : 2,
-                bottomLeading: bottomLeadingRounded ? cornerRadii.bottomLeading : 2,
-                bottomTrailing: bottomTrailingRounded ? cornerRadii.bottomTrailing : 2,
-                topTrailing: topTrailingRounded ? cornerRadii.topTrailing : 2
+                topLeading: roundCorners.contains(.topLeading) ? cornerRadii.topLeading : 2,
+                bottomLeading: roundCorners.contains(.bottomLeading) ? cornerRadii.bottomLeading : 2,
+                bottomTrailing: roundCorners.contains(.bottomTrailing) ? cornerRadii.bottomTrailing : 2,
+                topTrailing: roundCorners.contains(.topTrailing) ? cornerRadii.topTrailing : 2
             )
         } else {
             return cornerRadii

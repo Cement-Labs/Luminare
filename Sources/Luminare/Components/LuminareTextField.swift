@@ -152,21 +152,21 @@ public struct LuminareTextField<Label, F>: View where Label: View, F: ParseableF
     LuminareSection {
         LuminareTextField("Text Field", text: .constant("Bordered"))
             .focused($isFocused)
-            .luminareRoundingBehavior(top: true)
+            .luminareRoundCorners(.top)
 
         LuminareTextField("Text Field", text: .constant("No Border"))
-            .luminareBorderCondition(.none)
+            .luminareBorderConditions(.none)
             .focused($isFocused)
 
         LuminareTextField("Text Field", text: .constant("No Background or Border"))
-            .luminareFillCondition(.none)
-            .luminareBorderCondition(.none)
+            .luminareFillConditions(.none)
+            .luminareBorderConditions(.none)
             .focused($isFocused)
 
         LuminareTextField("Text Field", text: .constant("Disabled"))
             .disabled(true)
             .focused($isFocused)
-            .luminareRoundingBehavior(bottom: true)
+            .luminareRoundCorners(.bottom)
     }
     .onAppear {
         isFocused = false

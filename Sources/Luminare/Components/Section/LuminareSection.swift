@@ -23,7 +23,7 @@ public struct LuminareSection<Header, Content, Footer>: View where Header: View,
     // MARK: Environments
 
     @Environment(\.luminareCornerRadii) private var cornerRadii
-    @Environment(\.luminareBorderCondition) private var borderCondition
+    @Environment(\.luminareBorderConditions) private var borderConditions
     @Environment(\.luminareHasDividers) private var hasDividers
     @Environment(\.luminareSectionLayout) private var layout
     @Environment(\.luminareSectionMaxWidth) private var maxWidth
@@ -102,6 +102,7 @@ public struct LuminareSection<Header, Content, Footer>: View where Header: View,
         if clipped {
             styledContent()
                 .clipped()
+                .clipShape(.rect(cornerRadii: cornerRadii))
         } else {
             styledContent()
         }
@@ -110,14 +111,14 @@ public struct LuminareSection<Header, Content, Footer>: View where Header: View,
     @ViewBuilder
     private func styledContent() -> some View {
         Group {
-            if borderCondition.contains(.normal) {
+            if borderConditions.contains(.normal) {
                 LuminareSectionStack(hasDividers: hasDividers, content: content)
                     .compositingGroup()
                     .frame(maxWidth: maxWidth == 0 ? nil : maxWidth)
                     .fixedSize(horizontal: maxWidth == 0, vertical: false)
                     .environment(\.luminareIsInsideSection, true)
-                    .luminareRoundingBehavior(top: false, bottom: false)
                     .luminarePlateau()
+                    .luminareRoundCorners(.none)
             } else {
                 content()
             }

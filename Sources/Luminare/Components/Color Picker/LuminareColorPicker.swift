@@ -7,6 +7,20 @@
 
 import SwiftUI
 
+public struct LuminareColorPickerControls: OptionSet, Sendable {
+    public let rawValue: Int
+    
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
+    }
+    
+    public static let cancel: Self = .init(rawValue: 1 << 0)
+    public static let done: Self = .init(rawValue: 1 << 1)
+    
+    public static let all: Self = [.cancel, .done]
+    public static let none: Self = []
+}
+
 /// The style of a ``LuminareColorPicker``.
 public struct LuminareColorPickerStyle<F>
     where F: ParseableFormatStyle, F.FormatInput == String, F.FormatOutput == String {
@@ -114,8 +128,8 @@ public struct LuminareColorPicker<F>: View
                     }
                 }
                 .monospaced()
-                .luminareFillCondition(.none)
-                .luminareBorderCondition(.none)
+                .luminareFillConditions(.none)
+                .luminareBorderConditions(.none)
             }
 
             if style.hasColorWell {
@@ -136,12 +150,7 @@ public struct LuminareColorPicker<F>: View
                     contentMode: .fit,
                     hasFixedHeight: true
                 )
-                .luminareRoundingBehavior(
-                    topLeading: true,
-                    topTrailing: true,
-                    bottomLeading: true,
-                    bottomTrailing: true
-                )
+                .luminareRoundCorners()
                 .luminareModalWithPredefinedSheetStyle(isPresented: $isColorPickerPresented) {
                     VStack {
                         ColorPickerModalView(

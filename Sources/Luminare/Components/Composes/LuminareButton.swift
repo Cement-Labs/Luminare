@@ -133,7 +133,7 @@ public struct LuminareButton<Label, Content>: View where Label: View, Content: V
                     .padding(.horizontal, horizontalPadding)
             }
             .buttonStyle(.luminare)
-            .luminareRoundingBehavior(top: true, bottom: true)
+            .luminareRoundCorners()
             .luminareContentSize(
                 contentMode: .fit,
                 hasFixedHeight: true

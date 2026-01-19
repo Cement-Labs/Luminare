@@ -14,8 +14,7 @@ struct ColorPickerModalView: View {
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.luminareAnimationFast) private var animationFast
-    @Environment(\.luminareColorPickerHasCancel) private var hasCancel
-    @Environment(\.luminareColorPickerHasDone) private var hasDone
+    @Environment(\.luminareColorPickerControls) private var controls
 
     // MARK: Fields
 
@@ -78,7 +77,7 @@ struct ColorPickerModalView: View {
             Group {
                 rgbInputFields()
 
-                controls()
+                controlButtons()
             }
             .luminareCornerRadius(8)
         }
@@ -115,12 +114,12 @@ struct ColorPickerModalView: View {
         }
     }
 
-    private var hasControls: Bool {
-        hasCancel || hasDone
+    private var hasAnyControls: Bool {
+        controls != .none
     }
 
-    private var hasCancelAndDone: Bool {
-        hasCancel && hasDone
+    private var hasAllControls: Bool {
+        controls == .all
     }
 
     @ViewBuilder private func rgbInputFields() -> some View {
@@ -156,22 +155,22 @@ struct ColorPickerModalView: View {
             }
 
             // Display color picker inline with RGB input fields
-            if (!hasControls && hasColorPicker) || hasCancelAndDone {
+            if (!hasAnyControls && hasColorPicker) || hasAllControls {
                 colorPicker()
             }
         }
     }
 
-    @ViewBuilder private func controls() -> some View {
-        if hasControls {
+    @ViewBuilder private func controlButtons() -> some View {
+        if hasAnyControls {
             HStack(spacing: 4) {
                 // Display color picker inline with controls
-                if !hasCancelAndDone, hasColorPicker {
+                if !hasAllControls, hasColorPicker {
                     colorPicker()
                 }
 
                 Group {
-                    if hasCancel {
+                    if controls.contains(.cancel) {
                         Button("Cancel") {
                             // Revert selected color
                             selectedColor = initialColor
@@ -180,7 +179,7 @@ struct ColorPickerModalView: View {
                         .foregroundStyle(.red)
                     }
 
-                    if hasDone {
+                    if controls.contains(.done) {
                         Button("Done") {
                             selectedColor = internalHSBColor.rgb
                             initialColor = selectedColor
@@ -245,7 +244,7 @@ struct ColorPickerModalView: View {
             selectedColor: $color,
             hexColor: $hexColor
         )
-        .luminareColorPickerControls(hasDone: true)
+        .luminareColorPickerControls([.done])
         .focusable()
         .focusEffectDisabled()
         .focused($isFocused)

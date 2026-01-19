@@ -19,10 +19,7 @@ public struct LuminareList<ContentA, ContentB, V, ID>: View
     @Environment(\.luminareClickedOutside) private var luminareClickedOutside
     @Environment(\.luminareTintColor) private var tintColor
     @Environment(\.luminareAnimation) private var animation
-    @Environment(\.luminareContentMarginsTop) private var contentMarginsTop
-    @Environment(\.luminareContentMarginsLeading) private var contentMarginsLeading
-    @Environment(\.luminareContentMarginsBottom) private var contentMarginsBottom
-    @Environment(\.luminareContentMarginsTrailing) private var contentMarginsTrailing
+    @Environment(\.luminareContentMargins) private var contentMargins
     @Environment(\.luminareListItemHeight) private var itemHeight
     @Environment(\.luminareListFixedHeightUntil) private var fixedHeight
 
@@ -90,9 +87,9 @@ public struct LuminareList<ContentA, ContentB, V, ID>: View
                 emptyView()
             } else {
                 List(selection: $selection) {
-                    if contentMarginsTop > 0 {
+                    if contentMargins.top > 0 {
                         Spacer()
-                            .frame(height: contentMarginsTop)
+                            .frame(height: contentMargins.top)
                     }
 
                     ForEach($items, id: keyPath, content: listItem)
@@ -108,13 +105,13 @@ public struct LuminareList<ContentA, ContentB, V, ID>: View
                         .listRowSeparator(.hidden)
                         .listRowInsets(.init())
                         .padding(.horizontal, -10)
-                        .padding(.leading, contentMarginsLeading)
-                        .padding(.trailing, contentMarginsTrailing)
+                        .padding(.leading, contentMargins.leading)
+                        .padding(.trailing, contentMargins.trailing)
                         .transition(.slide)
 
-                    if contentMarginsBottom > 0 {
+                    if contentMargins.bottom > 0 {
                         Spacer()
-                            .frame(height: contentMarginsBottom)
+                            .frame(height: contentMargins.bottom)
                     }
                 }
                 .listStyle(.plain)
@@ -142,7 +139,7 @@ public struct LuminareList<ContentA, ContentB, V, ID>: View
             }
 
             selection = selection.intersection(items)
-            processSelection() // update first and last item
+            processSelection() // Update first and last items
         }
         .onChange(of: selection) { _ in
             processSelection()
@@ -180,7 +177,7 @@ public struct LuminareList<ContentA, ContentB, V, ID>: View
     }
 
     private var totalHeight: CGFloat {
-        let margins = contentMarginsTop + contentMarginsBottom
+        let margins = contentMargins.top + contentMargins.bottom
         return CGFloat(max(1, items.count)) * itemHeight + margins
     }
 
@@ -240,10 +237,7 @@ public struct LuminareListItem<Content, V>: View
     @Environment(\.luminareListItemCornerRadii) private var itemCornerRadii
     @Environment(\.luminareListItemHeight) private var itemHeight
     @Environment(\.luminareListItemHighlightOnHover) private var highlightOnHover
-    @Environment(\.luminareTopLeadingRounded) private var topLeadingRounded
-    @Environment(\.luminareTopTrailingRounded) private var topTrailingRounded
-    @Environment(\.luminareBottomLeadingRounded) private var bottomLeadingRounded
-    @Environment(\.luminareBottomTrailingRounded) private var bottomTrailingRounded
+    @Environment(\.luminareRoundCorners) private var roundCorners
 
     // MARK: Fields
 
@@ -285,7 +279,7 @@ public struct LuminareListItem<Content, V>: View
             .frame(minHeight: itemHeight)
             .overlay {
                 content($item)
-                    .environment(\.luminareItemBeingHovered, isHovering)
+                    .environment(\.luminareListItemIsHovering, isHovering)
                     .foregroundStyle(isEnabled ? .primary : .secondary)
             }
             .tag(item)
@@ -369,13 +363,13 @@ public struct LuminareListItem<Content, V>: View
             } else { itemCornerRadii }
 
         return .init(
-            topLeadingRadius: isFirst && topLeadingRounded
+            topLeadingRadius: isFirst && roundCorners.contains(.topLeading)
                 ? cornerRadii.topLeading : topCornerRadii.topLeading,
-            bottomLeadingRadius: isLast && bottomLeadingRounded
+            bottomLeadingRadius: isLast && roundCorners.contains(.bottomLeading)
                 ? cornerRadii.bottomLeading : bottomCornerRadii.bottomLeading,
-            bottomTrailingRadius: isLast && bottomTrailingRounded
+            bottomTrailingRadius: isLast && roundCorners.contains(.bottomTrailing)
                 ? cornerRadii.bottomTrailing : bottomCornerRadii.bottomTrailing,
-            topTrailingRadius: isFirst && topTrailingRounded
+            topTrailingRadius: isFirst && roundCorners.contains(.topTrailing)
                 ? cornerRadii.topTrailing : topCornerRadii.topTrailing
         )
     }
@@ -414,12 +408,12 @@ public struct LuminareListItem<Content, V>: View
 
             ZStack {
                 UnevenRoundedRectangle(
-                    topLeadingRadius: isFirst && topLeadingRounded
+                    topLeadingRadius: isFirst && roundCorners.contains(.topLeading)
                         ? cornerRadii.topLeading - 1
                         : itemCornerRadii.topLeading,
                     bottomLeadingRadius: 0,
                     bottomTrailingRadius: 0,
-                    topTrailingRadius: isFirst && topTrailingRounded
+                    topTrailingRadius: isFirst && roundCorners.contains(.topTrailing)
                         ? cornerRadii.topTrailing - 1
                         : itemCornerRadii.topTrailing
                 )
@@ -477,10 +471,10 @@ public struct LuminareListItem<Content, V>: View
             ZStack {
                 UnevenRoundedRectangle(
                     topLeadingRadius: 0,
-                    bottomLeadingRadius: isLast && bottomLeadingRounded
+                    bottomLeadingRadius: isLast && roundCorners.contains(.bottomLeading)
                         ? cornerRadii.bottomLeading - 1
                         : itemCornerRadii.bottomLeading,
-                    bottomTrailingRadius: isLast && bottomTrailingRounded
+                    bottomTrailingRadius: isLast && roundCorners.contains(.bottomTrailing)
                         ? cornerRadii.bottomTrailing - 1
                         : itemCornerRadii.bottomTrailing,
                     topTrailingRadius: 0
@@ -521,13 +515,13 @@ public struct LuminareListItem<Content, V>: View
 
     @ViewBuilder private func singleSelectionPart() -> some View {
         UnevenRoundedRectangle(
-            topLeadingRadius: isFirst && topLeadingRounded
+            topLeadingRadius: isFirst && roundCorners.contains(.topLeading)
                 ? cornerRadii.topLeading - 1 : itemCornerRadii.topLeading,
-            bottomLeadingRadius: isLast && bottomLeadingRounded
+            bottomLeadingRadius: isLast && roundCorners.contains(.bottomLeading)
                 ? cornerRadii.bottomLeading - 1 : itemCornerRadii.bottomLeading,
-            bottomTrailingRadius: isLast && bottomTrailingRounded
+            bottomTrailingRadius: isLast && roundCorners.contains(.bottomTrailing)
                 ? cornerRadii.bottomTrailing - 1 : itemCornerRadii.bottomTrailing,
-            topTrailingRadius: isFirst && topTrailingRounded
+            topTrailingRadius: isFirst && roundCorners.contains(.topTrailing)
                 ? cornerRadii.topTrailing - 1 : itemCornerRadii.topTrailing
         )
         .strokeBorder(.tint, lineWidth: lineWidth)
@@ -549,19 +543,20 @@ public struct LuminareListItem<Content, V>: View
 
 // MARK: - Preview
 
-private struct ListPreview<V>: View where V: Hashable & Comparable {
+private struct ListPreview<V>: View where V: Hashable & Comparable & LosslessStringConvertible {
     @State var items: [V]
     @State var selection: Set<V>
     let add: (inout [V]) -> ()
 
     var body: some View {
-        LuminareSection {
+        LuminareSection(clipped: true) {
             HStack(spacing: 2) {
                 Button("Add") {
                     withAnimation {
                         add(&items)
                     }
                 }
+                .luminareRoundCorners(.topLeading)
 
                 Button("Sort") {
                     withAnimation {
@@ -574,6 +569,7 @@ private struct ListPreview<V>: View where V: Hashable & Comparable {
                     items.removeAll { selection.contains($0) }
                 }
                 .disabled(selection.isEmpty)
+                .luminareRoundCorners(.topTrailing)
             }
             .buttonStyle(.luminare)
             .frame(height: 40)
@@ -583,7 +579,7 @@ private struct ListPreview<V>: View where V: Hashable & Comparable {
                 selection: $selection,
                 id: \.self
             ) { value in
-                Text("\(value.wrappedValue)")
+                Text("\(String(value.wrappedValue))")
                     .contextMenu {
                         Button("Remove") {
                             if selection.isEmpty {
@@ -600,6 +596,7 @@ private struct ListPreview<V>: View where V: Hashable & Comparable {
                 Text("Empty")
                     .foregroundStyle(.secondary)
             }
+            .luminareRoundCorners(.bottom)
         }
     }
 }
@@ -609,18 +606,14 @@ private struct ListPreview<V>: View where V: Hashable & Comparable {
     "LuminareList",
     traits: .sizeThatFitsLayout
 ) {
-    VStack {
-        ListPreview(items: [37, 42, 1, 0], selection: [42]) { items in
-            guard items.count < 100 else { return }
-            let random = { Int.random(in: 0 ..< 100) }
-            var new = random()
-            while items.contains([new]) {
-                new = random()
-            }
-            items.append(new)
+    ListPreview(items: [37, 42, 1, 0], selection: [42]) { items in
+        guard items.count < 100 else { return }
+        let random = { Int.random(in: 0 ..< 100) }
+        var new = random()
+        while items.contains([new]) {
+            new = random()
         }
-        .luminareListFixedHeight(until: 315)
-        .luminareRoundingBehavior(bottom: true)
-        .padding(20)
+        items.append(new)
     }
+    .luminareListFixedHeight(until: 200)
 }

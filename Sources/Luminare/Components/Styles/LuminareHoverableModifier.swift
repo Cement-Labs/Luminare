@@ -14,10 +14,7 @@ public struct LuminareHoverableModifier: ViewModifier {
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.luminareCornerRadii) private var cornerRadii
     @Environment(\.luminareIsInsideSection) private var isInsideSection
-    @Environment(\.luminareTopLeadingRounded) private var topLeadingRounded
-    @Environment(\.luminareTopTrailingRounded) private var topTrailingRounded
-    @Environment(\.luminareBottomLeadingRounded) private var bottomLeadingRounded
-    @Environment(\.luminareBottomTrailingRounded) private var bottomTrailingRounded
+    @Environment(\.luminareRoundCorners) private var roundCorners
     @State private var disableInnerPadding: Bool? = nil
 
     private let isPressed: Bool
@@ -38,10 +35,10 @@ public struct LuminareHoverableModifier: ViewModifier {
             let defaultCornerRadius: CGFloat = 2
 
             return RectangleCornerRadii(
-                topLeading: topLeadingRounded ? cornerRadii.topLeading : defaultCornerRadius,
-                bottomLeading: bottomLeadingRounded ? cornerRadii.bottomLeading : defaultCornerRadius,
-                bottomTrailing: bottomTrailingRounded ? cornerRadii.bottomTrailing : defaultCornerRadius,
-                topTrailing: topTrailingRounded ? cornerRadii.topTrailing : defaultCornerRadius
+                topLeading: roundCorners.contains(.topLeading) ? cornerRadii.topLeading : defaultCornerRadius,
+                bottomLeading: roundCorners.contains(.bottomLeading) ? cornerRadii.bottomLeading : defaultCornerRadius,
+                bottomTrailing: roundCorners.contains(.bottomTrailing) ? cornerRadii.bottomTrailing : defaultCornerRadius,
+                topTrailing: roundCorners.contains(.topTrailing) ? cornerRadii.topTrailing : defaultCornerRadius
             )
         } else {
             return cornerRadii

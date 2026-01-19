@@ -9,10 +9,7 @@ import SwiftUI
 
 /// A simple scroll view that enables scrolling only if the content is large enough to scroll.
 public struct AutoScrollView<Content>: View where Content: View {
-    @Environment(\.luminareContentMarginsTop) private var contentMarginsTop
-    @Environment(\.luminareContentMarginsLeading) private var contentMarginsLeading
-    @Environment(\.luminareContentMarginsBottom) private var contentMarginsBottom
-    @Environment(\.luminareContentMarginsTrailing) private var contentMarginsTrailing
+    @Environment(\.luminareContentMargins) private var contentMargins
 
     private let axes: Axis.Set
     private let showsIndicators: Bool
@@ -40,18 +37,18 @@ public struct AutoScrollView<Content>: View where Content: View {
     public var body: some View {
         ScrollView(allowedAxes, showsIndicators: showsIndicators) {
             VStack(spacing: 0) {
-                if contentMarginsTop > 0 {
+                if contentMargins.top > 0 {
                     Spacer()
-                        .frame(height: contentMarginsTop)
+                        .frame(height: contentMargins.top)
                 }
 
                 content()
-                    .padding(.leading, contentMarginsLeading)
-                    .padding(.trailing, contentMarginsTrailing)
+                    .padding(.leading, contentMargins.leading)
+                    .padding(.trailing, contentMargins.trailing)
 
-                if contentMarginsBottom > 0 {
+                if contentMargins.bottom > 0 {
                     Spacer()
-                        .frame(height: contentMarginsBottom)
+                        .frame(height: contentMargins.bottom)
                 }
             }
             .onGeometryChange(for: CGSize.self, of: \.size) { size in

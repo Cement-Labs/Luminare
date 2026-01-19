@@ -123,7 +123,7 @@ public struct LuminareCompactPicker<Content, V>: View where Content: View, V: Ha
             @Environment(\.luminareAnimation) private var animation
             @Environment(\.luminareMinHeight) private var minHeight
             @Environment(\.luminareCornerRadii) private var cornerRadii
-            @Environment(\.luminareBorderCondition) private var borderCondition
+            @Environment(\.luminareBorderConditions) private var borderConditions
 
             var child: VariadicViewChildren.Element
             var namespace: Namespace.ID
@@ -166,7 +166,7 @@ public struct LuminareCompactPicker<Content, V>: View where Content: View, V: Ha
             }
 
             private var constrainedCornerRadii: RectangleCornerRadii {
-                let baseRadii = if borderCondition.contains(.normal) || isParentHovering {
+                let baseRadii = if borderConditions.contains(.normal) || isParentHovering {
                     cornerRadii.inset(by: 2, minRadius: 2)
                 } else {
                     cornerRadii
@@ -206,14 +206,14 @@ public struct LuminareCompactPicker<Content, V>: View where Content: View, V: Ha
 
 // MARK: - Preview
 
-private struct PickerPreview<V>: View where V: Hashable & Equatable {
+private struct PickerPreview<V>: View where V: Hashable & Equatable & LosslessStringConvertible {
     let elements: [V]
     @State var selection: V
 
     var body: some View {
         LuminareCompactPicker(selection: $selection) {
             ForEach(elements, id: \.self) { element in
-                Text("\(element)")
+                Text("\(String(element))")
             }
         }
     }
@@ -250,6 +250,6 @@ private struct PickerPreview<V>: View where V: Hashable & Equatable {
 
         PickerPreview(elements: [40, 41, 42, 43, 44], selection: 42)
             .luminareCompactPickerStyle(.segmented)
-            .luminareRoundingBehavior(bottom: true)
+            .luminareRoundCorners(.bottom)
     }
 }

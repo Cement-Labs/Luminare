@@ -66,7 +66,7 @@ public class LuminareWindow: NSWindow {
     }
 
     func relocateTrafficLights() {
-        guard let contentView, let trafficLightsOrigin else {
+        guard let trafficLightsOrigin else {
             return
         }
 

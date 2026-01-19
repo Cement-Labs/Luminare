@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct LuminareFillCondition: OptionSet, Sendable {
+public struct LuminareFillConditions: OptionSet, Sendable {
     public let rawValue: Int
 
     public init(rawValue: Int) {
@@ -47,7 +47,7 @@ public struct LuminareFillStyle<F: ShapeStyle, H: ShapeStyle, P: ShapeStyle>: Se
 }
 
 struct LuminareFill<F, H, P>: View where F: ShapeStyle, H: ShapeStyle, P: ShapeStyle {
-    @Environment(\.luminareFillCondition) private var condition
+    @Environment(\.luminareFillConditions) private var condition
 
     private let isHovering: Bool
     private let isPressed: Bool

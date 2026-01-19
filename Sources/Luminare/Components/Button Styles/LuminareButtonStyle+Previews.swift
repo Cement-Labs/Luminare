@@ -21,21 +21,21 @@ import SwiftUI
                 Button("Prominent") {}
                     .buttonStyle(.luminare(tinted: true))
                     .tint(.purple)
-                    .luminareRoundingBehavior(topLeading: true)
+                    .luminareRoundCorners(.topLeading)
 
                 Button("Prominent") {}
                     .buttonStyle(.luminare(tinted: true))
                     .tint(.teal)
-                    .luminareRoundingBehavior(topTrailing: true)
+                    .luminareRoundCorners(.topTrailing)
             }
             .frame(height: 40)
 
             HStack(spacing: 4) {
                 Button("Normal") {}
-                    .luminareRoundingBehavior(bottomLeading: true)
+                    .luminareRoundCorners(.bottomLeading)
 
                 Button("Destructive", role: .destructive) {}
-                    .luminareRoundingBehavior(bottomTrailing: true)
+                    .luminareRoundCorners(.bottomTrailing)
             }
             .frame(height: 40)
         }
@@ -43,7 +43,7 @@ import SwiftUI
         LuminareSection {
             HStack {
                 Button("Plateau") {}
-                    .luminareRoundingBehavior(top: true, bottom: true)
+                    .luminareRoundCorners()
             }
             .frame(height: 40)
         }
@@ -95,7 +95,7 @@ import SwiftUI
     Text("Not Bordered")
         .fixedSize()
         .modifier(LuminareHoverableModifier())
-        .luminareBorderCondition(.none)
+        .luminareBorderConditions(.none)
 
     Text("Bordered")
         .fixedSize()

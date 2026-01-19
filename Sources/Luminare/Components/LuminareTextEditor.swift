@@ -105,12 +105,12 @@ public struct LuminareTextEditor: View {
 
     LuminareSection {
         LuminareTextEditor(text: $text)
-            .luminareRoundingBehavior(top: true, bottom: false)
+            .luminareRoundCorners(.top)
 
         LuminareTextEditor(text: $text, selection: $selection)
 
         LuminareTextEditor(text: $text, selection: $selection)
             .disabled(true)
-            .luminareRoundingBehavior(top: false, bottom: true)
+            .luminareRoundCorners(.bottom)
     }
 }

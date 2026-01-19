@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct LuminareBorderCondition: OptionSet, Sendable {
+public struct LuminareBorderConditions: OptionSet, Sendable {
     public let rawValue: Int
 
     public init(rawValue: Int) {
@@ -42,7 +42,7 @@ public struct LuminareBorderStyle<F: ShapeStyle, H: ShapeStyle>: Sendable {
 }
 
 struct LuminareBorder<F, H>: View where F: ShapeStyle, H: ShapeStyle {
-    @Environment(\.luminareBorderCondition) private var condition
+    @Environment(\.luminareBorderConditions) private var condition
 
     private let isHovering: Bool
     private let cornerRadii: RectangleCornerRadii

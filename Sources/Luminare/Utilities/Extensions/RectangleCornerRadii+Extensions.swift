@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct RectangleCornerRadiiCorners: OptionSet, Sendable {
+public struct RectangleCorners: OptionSet, Sendable, Hashable {
     public var rawValue: Int
 
     public init(rawValue: Int) {
@@ -20,6 +20,7 @@ public struct RectangleCornerRadiiCorners: OptionSet, Sendable {
     public static let topTrailing: Self = .init(rawValue: 1 << 3)
 
     public static let all: Self = [.topLeading, .bottomLeading, .bottomTrailing, .topTrailing]
+    public static let none: Self = []
     public static let top: Self = [.topLeading, .topTrailing]
     public static let bottom: Self = [.bottomLeading, .bottomTrailing]
     public static let leading: Self = [.topLeading, .bottomLeading]
@@ -38,7 +39,7 @@ extension RectangleCornerRadii {
         )
     }
 
-    func inset(corners: RectangleCornerRadiiCorners = .all, by amount: CGFloat, minRadius: CGFloat = 0) -> Self {
+    func inset(corners: RectangleCorners = .all, by amount: CGFloat, minRadius: CGFloat = 0) -> Self {
         var newRadii = self
 
         if corners.contains(.topLeading) {
