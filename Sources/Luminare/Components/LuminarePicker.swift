@@ -262,26 +262,27 @@ public struct LuminarePicker<Content, V>: View where Content: View, V: Equatable
 
     LuminareSection {
         LuminarePicker(
-            elements: Array(32...42),
+            elements: Array(36...46),
             selection: $selection
         ) { num in
             VStack {
                 Image(systemName: "\(num).circle")
                     .font(.title)
-                Text("\(num)")
             }
             .frame(height: 70)
-            .background(.red)
         }
         .luminareRoundCorners(.top)
         .luminareContentSize(hasFixedHeight: true)
 
         LuminarePicker(
-            elements: Array(32 ..< 36),
-            selection: $selection
+            elements: Array(38 ..< 43),
+            selection: $selection,
+            columns: 3
         ) { num in
             Text("\(num)")
+                .font(.title3)
         }
         .luminareRoundCorners(.bottom)
+        .frame(height: 200)
     }
 }
